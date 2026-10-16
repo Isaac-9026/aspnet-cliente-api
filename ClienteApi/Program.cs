@@ -1,5 +1,6 @@
 ﻿using ClienteApi.Data;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 //Construir la aplicacion (motor)
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();

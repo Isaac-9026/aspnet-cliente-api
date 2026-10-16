@@ -13,6 +13,6 @@ namespace ClienteApi.Data
         }
 
         //ORM tendrÃ¡ acceso al modelo cliente
-        public DbSet<Cliente> Cliente { get; set; } 
+        public DbSet<Cliente> Clientes { get; set; } 
     }
 }
