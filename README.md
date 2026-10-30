@@ -74,6 +74,26 @@ CREATE TABLE Usuario
     rol          NVARCHAR(30)     NOT NULL DEFAULT 'Usuario'
 )
 GO
+
+-- 4. Tabla de Proveedores
+CREATE TABLE proveedores
+(
+    id          INT IDENTITY(1,1) PRIMARY KEY,
+    ruc         CHAR(11)        NOT NULL,
+    razonsocial NVARCHAR(120)   NOT NULL,
+    direccion   NVARCHAR(150)   NOT NULL,
+    telefono    NVARCHAR(15)    NOT NULL,
+    correo      NVARCHAR(150)   NOT NULL,
+    CONSTRAINT uk_ruc_prov UNIQUE (ruc),
+    CONSTRAINT ck_ruc_prov CHECK (ruc LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+)
+GO
+
+-- Datos iniciales de Proveedores
+INSERT INTO proveedores (ruc, razonsocial, direccion, telefono, correo) VALUES
+('20100070970', 'DISTRIBUIDORA INDUSTRIAL DEL SUR S.A.C.', 'Av. Industrial 450, Lima', '987654321', 'ventas@distribuidorasur.com'),
+('20508938123', 'TECNOLOGIAS Y REDES PERU S.A.', 'Jr. Los Olivos 123, Miraflores', '912345678', 'contacto@tecnoredesperu.com')
+GO
 ```
 
 ---
@@ -133,6 +153,18 @@ En el archivo [`appsettings.json`](file:///c:/Users/SENATI/source/repos/ClienteA
 | **POST** | `/api/productos` | Registra un nuevo producto | `201 Created` |
 | **PUT** | `/api/productos/{id}` | Actualiza un producto existente | `204 NoContent` / `400` / `404` |
 | **DELETE** | `/api/productos/{id}` | Elimina un producto por su ID | `204 NoContent` / `404 Not Found` |
+
+---
+
+### Módulo Proveedores (`/api/proveedores`)
+
+| Método | Endpoint | Descripción | Código de Estado |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/api/proveedores?buscar={texto}` | Lista proveedores con filtro por RUC, razón social o dirección | `200 OK` |
+| **GET** | `/api/proveedores/{id}` | Busca un proveedor por su ID | `200 OK` / `404 Not Found` |
+| **POST** | `/api/proveedores` | Registra un nuevo proveedor (valida RUC único) | `201 Created` / `409 Conflict` |
+| **PUT** | `/api/proveedores/{id}` | Actualiza un proveedor existente | `204 NoContent` / `400` / `409` / `404` |
+| **DELETE** | `/api/proveedores/{id}` | Elimina un proveedor por su ID | `204 NoContent` / `404 Not Found` |
 
 ---
 

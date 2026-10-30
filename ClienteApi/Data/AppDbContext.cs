@@ -1,4 +1,4 @@
-﻿using ClienteApi.Models; //Modelo (definición tabla)
+using ClienteApi.Models; //Modelo (definición tabla)
 using Microsoft.EntityFrameworkCore; //Acceder BD
 
 namespace ClienteApi.Data
@@ -12,9 +12,10 @@ namespace ClienteApi.Data
 
         }
 
-        //ORM tendrá acceso al modelo cliente
+        //ORM tendrá acceso a los modelos
         public DbSet<Cliente> Clientes { get; set; } 
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Proveedor> Proveedores { get; set; }
     }
 }
